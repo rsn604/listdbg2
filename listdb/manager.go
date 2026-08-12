@@ -24,8 +24,7 @@ func GetManager(name string) Manager {
 	if name == "BOLT" {
 		return new(BoltManager)
 	} else {
-		//return new(ListDBManager)
+		return new(ListDBManager)
 	}
-
 	return nil
 }

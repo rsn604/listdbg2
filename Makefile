@@ -3,8 +3,16 @@ GOBUILD=go build
 GORUN=go run
 MAIN_PROG=listdbg2
 LOAD_PROG=loaddb
-SRCS=main.go
+MAIN_SRCS=main.go
 LOAD_SRCS=loaddb.go
+
+BOLTDB=BOLT
+BOLTSTRING=./db/ListDB.boltdb
+
+SQLITE3=SQLITE3
+SQLITE3STRING=./db/ListDB.sqlite3
+
+CSVDIR=./csv
 
 # ---------------------------------------------------
 clean:
@@ -16,33 +24,30 @@ gofmt:
 
 # ---------------------------------------------------
 run:
-	$(GORUN) $(SRCS)
+	$(GORUN) $(MAIN_SRCS) $(BOLTDB) $(BOLTSTRING)
+
+# ---------------------------------------------------
+run-sqlite3:
+	$(GORUN) $(MAIN_SRCS) $(SQLITE3) $(SQLITE3STRING)
 
 # ---------------------------------------------------
 load:
-	$(GORUN) $(LOAD_SRCS)
+	$(GORUN) $(LOAD_SRCS) $(BOLTDB) $(BOLTSTRING) $(CSVDIR) 
+
+# ---------------------------------------------------
+load-sqlite3:
+	$(GORUN) $(LOAD_SRCS) $(SQLITE3) $(SQLITE3STRING) $(CSVDIR) 
 
 # ---------------------------------------------------
 build:
-	$(GOBUILD) -o $(MAIN_PROG) $(SRCS)
+	$(GOBUILD) -o $(MAIN_PROG) $(MAIN_SRCS)
+#	$(GOBUILD) -o $(LOAD_PROG) $(LOAD_SRCS)
 
 # ---------------------------------------------------
 build-win64:
-	GOOS=windows GOARCH=amd64 $(GOBUILD) -o $(MAIN_PROG).exe $(SRCS)
-
-# ---------------------------------------------------
-#build-win32:
-#	GOOS=windows GOARCH=386 $(GOBUILD) -o $(MAIN_PROG)32.exe $(SRCS)
+	GOOS=windows GOARCH=amd64 $(GOBUILD) -o $(MAIN_PROG).exe $(MAIN_SRCS)
 
 # ---------------------------------------------------
 build-arm6:
-	GOOS=linux GOARCH=arm GOARM=6 $(GOBUILD) -o $(MAIN_PROG)_arm6 $(SRCS)
-	#GOOS=linux GOARCH=arm GOARM=6 $(GOBUILD) -o $(MAIN_PROG) $(SRCS)
+	GOOS=linux GOARCH=arm GOARM=6 $(GOBUILD) -o $(MAIN_PROG)_arm6 $(MAIN_SRCS)
 
-# ---------------------------------------------------
-#build-arm7:
-#	GOOS=linux GOARCH=arm GOARM=7 $(GOBUILD) -o $(MAIN_PROG)_arm7 $(SRCS)
-
-# ---------------------------------------------------
-#build-arm64:
-#	GOOS=linux GOARCH=arm64 $(GOBUILD) -o $(MAIN_PROG)_arm64 $(SRCS)
