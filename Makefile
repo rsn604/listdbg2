@@ -9,9 +9,6 @@ LOAD_SRCS=loaddb.go
 BOLTDB=BOLT
 BOLTSTRING=./db/ListDB.boltdb
 
-SQLITE3=SQLITE3
-SQLITE3STRING=./db/ListDB.sqlite3
-
 CSVDIR=./csv
 
 # ---------------------------------------------------
@@ -27,16 +24,8 @@ run:
 	$(GORUN) $(MAIN_SRCS) $(BOLTDB) $(BOLTSTRING)
 
 # ---------------------------------------------------
-run-sqlite3:
-	$(GORUN) $(MAIN_SRCS) $(SQLITE3) $(SQLITE3STRING)
-
-# ---------------------------------------------------
 load:
 	$(GORUN) $(LOAD_SRCS) $(BOLTDB) $(BOLTSTRING) $(CSVDIR) 
-
-# ---------------------------------------------------
-load-sqlite3:
-	$(GORUN) $(LOAD_SRCS) $(SQLITE3) $(SQLITE3STRING) $(CSVDIR) 
 
 # ---------------------------------------------------
 build:
