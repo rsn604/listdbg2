@@ -30,13 +30,15 @@ load:
 # ---------------------------------------------------
 build:
 	$(GOBUILD) -o $(MAIN_PROG) $(MAIN_SRCS)
-#	$(GOBUILD) -o $(LOAD_PROG) $(LOAD_SRCS)
+	$(GOBUILD) -o $(LOAD_PROG) $(LOAD_SRCS)
 
 # ---------------------------------------------------
 build-win64:
 	GOOS=windows GOARCH=amd64 $(GOBUILD) -o $(MAIN_PROG).exe $(MAIN_SRCS)
+	GOOS=windows GOARCH=amd64 $(GOBUILD) -o $(LOAD_PROG).exe $(LOAD_SRCS)
 
 # ---------------------------------------------------
 build-arm6:
 	GOOS=linux GOARCH=arm GOARM=6 $(GOBUILD) -o $(MAIN_PROG)_arm6 $(MAIN_SRCS)
+	GOOS=linux GOARCH=arm GOARM=6 $(GOBUILD) -o $(LOAD_PROG)_arm6 $(LOAD_SRCS)
 
